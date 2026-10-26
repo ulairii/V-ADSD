@@ -1,0 +1,73 @@
+{
+  "artifact_name": "V-ADSD",
+  "paper_title": "Visual Attacks Can Reduce Speculative Decoding Efficiency in Driving VLMs",
+  "upstream": {
+    "vispec_repository": "https://github.com/KangJialiang/ViSpec.git",
+    "vispec_commit": "49a33ff0ca31e281b9dc8803fd6f3041c6c0e135",
+    "qwen_model": "Qwen/Qwen2.5-VL-7B-Instruct",
+    "qwen_revision": "cc594898137f460bfe9f0759e9844b3ce807cfb5",
+    "drivelm_annotation": "DriveLM v1.1 public annotation",
+    "drivelm_revision": "not recorded in the original run",
+    "nuscenes_version": "v1.0-trainval"
+  },
+  "model_pair": {
+    "target": {
+      "architecture": "Qwen2.5-VL-7B-Instruct",
+      "adaptation": "DriveLM LoRA supervised fine-tuning for one epoch; merged at final step 3431",
+      "checkpoint_record": "qwen25vl7b_drivelm_challenge_lora/merged_target",
+      "weights_in_repository": false
+    },
+    "draft": {
+      "architecture": "ViSpec one-layer auxiliary Qwen decoder with image adaptor",
+      "adaptation": "three epochs on 243 target-rollout training samples; 13 validation samples; final step 729",
+      "checkpoint_record": "vispec7b_drivelm_target_e1_256_lr3e6_e3/export",
+      "weights_in_repository": false
+    }
+  },
+  "split": {
+    "calibration_manifest": "manifests/calibration.jsonl",
+    "calibration_questions": 10,
+    "calibration_scenes": 10,
+    "test_manifest": "manifests/test.jsonl",
+    "test_questions": 51,
+    "test_scenes": 21,
+    "selection": "planning questions with action, reason, probability, and reference length of at least 24 whitespace-delimited words",
+    "scene_overlap": 0
+  },
+  "decoding": {
+    "mode": "greedy",
+    "max_new_tokens": 64,
+    "vispec_total_token": 30,
+    "tree_depth": 3,
+    "tree_top_k": 8,
+    "tree_num_q": 2,
+    "max_visual_tokens_per_image": 256,
+    "evaluation_dtype": "float16",
+    "seed": 0,
+    "require_target_spec_token_equality": true
+  },
+  "attack": {
+    "space": "Qwen normalized and resized six-view visual patch tensor",
+    "rgb_equivalent_linf_255": 32,
+    "method": "random-start PGD",
+    "steps": 20,
+    "step_size_255": 2,
+    "objective": "draft_ce",
+    "attack_start_zero_based": 11,
+    "attack_tokens_requested": 24,
+    "preservation_tokens": 13,
+    "primary_preservation_weight": 1,
+    "secondary_preservation_weight": 4,
+    "unconstrained_attack_start_zero_based": 1,
+    "unconstrained_attack_tokens_requested": 24
+  },
+  "hardware": {
+    "gpu": "NVIDIA A100-PCIE-40GB",
+    "gpus_per_evaluation_job": 1
+  },
+  "evidence": {
+    "aggregate_result_file": "results/paper_results.json",
+    "raw_final_run_outputs_in_repository": false,
+    "completed_evaluation_runs": 6
+  }
+}

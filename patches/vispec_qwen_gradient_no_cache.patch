@@ -1,0 +1,16 @@
+diff --git a/vispec/model/modeling_qwen2_5_vl_kv.py b/vispec/model/modeling_qwen2_5_vl_kv.py
+--- a/vispec/model/modeling_qwen2_5_vl_kv.py
++++ b/vispec/model/modeling_qwen2_5_vl_kv.py
+@@ -1398,7 +1398,11 @@ class Qwen2_5_VLModel(Qwen2_5_VLPreTrainedModel):
+             if output_hidden_states:
+                 all_hidden_states += (hidden_states,)
+ 
+-            past_key_value = past_key_values[idx]  # [MODIFIED]
++            # Preserve ViSpec's preallocated-cache path while allowing a
++            # differentiable full-sequence forward with caching disabled.
++            past_key_value = (
++                past_key_values[idx] if past_key_values is not None else None
++            )
+ 
+             if self.gradient_checkpointing and self.training:
+                 layer_outputs = self._gradient_checkpointing_func(

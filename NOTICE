@@ -1,0 +1,10 @@
+V-ADSD artifact notice
+
+This repository contains patches and integration code for ViSpec. ViSpec is
+available from https://github.com/KangJialiang/ViSpec and is not vendored here.
+
+Files under assets/ visualize examples derived from nuScenes images and
+DriveLM annotations. Those assets are included for scholarly illustration and
+remain subject to the original nuScenes and DriveLM terms. The Apache-2.0
+license in this repository applies to the V-ADSD code, not to third-party data,
+model weights, or upstream software.

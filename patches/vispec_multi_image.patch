@@ -1,0 +1,33 @@
+diff --git a/vispec/model/cnets_ours.py b/vispec/model/cnets_ours.py
+--- a/vispec/model/cnets_ours.py
++++ b/vispec/model/cnets_ours.py
+index c821bc9..fd7b123 100644
+@@ -919,13 +919,15 @@ class Model(nn.Module):
+                     txt_hidden = hidden_states[b, img_id_start:img_id_end][~cur_img_msk]
+                     txt_img = self.last_img_hidden.expand_as(txt_hidden)
+                     hidden = self.img_fc(torch.cat((txt_hidden, txt_img), dim=-1))
+-                    h_s.append(self.fc(torch.cat((txt_emd, hidden), dim=-1)))
++                    txt_draft = self.fc(torch.cat((txt_emd, hidden), dim=-1))
++                    h_s.append(txt_draft)
+ 
+                     img_emd = inputs_embeds[b, img_id_start:img_id_end][
+                         cur_img_msk
+                     ].unsqueeze(0)
+                     img_adapted = self.imadpt(img_emd).squeeze(0)
+-                    h_s.append(img_adapted[:-1])
++                    img_draft = img_adapted[:-1]
++                    h_s.append(img_draft)
+ 
+                     self.last_img_hidden = img_adapted[-1:]
+ 
+@@ -936,8 +938,8 @@ class Model(nn.Module):
+                         ],
+                     ]
+                     t_m += [
+-                        eye_m[img_id_start : img_id_start + h_s[0].shape[0], :],
+-                        eye_m[img_id_end - h_s[1].shape[0] : img_id_end, :],
++                        eye_m[img_id_start : img_id_start + txt_draft.shape[0], :],
++                        eye_m[img_id_end - img_draft.shape[0] : img_id_end, :],
+                     ]
+                     img_id_start = img_id_end
+ 

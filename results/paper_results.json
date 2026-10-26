@@ -1,0 +1,89 @@
+{
+  "protocol": {
+    "test_questions": 51,
+    "test_scenes": 21,
+    "gpu": "NVIDIA A100-PCIE-40GB",
+    "eval_dtype": "float16",
+    "epsilon_255": 32,
+    "manifest": "manifests/test.jsonl",
+    "evidence_scope": "Aggregate values transcribed from completed Slurm runs; raw per-sample outputs and model weights are not committed."
+  },
+  "results": [
+    {
+      "condition": "clean",
+      "eta": 4.41795665634675,
+      "raw_accept_length": 3.4643962848297214,
+      "spec_total_sec": 1.4129296335638226,
+      "spec_decode_sec": 0.19180608263202742,
+      "target_f1": 0.7446583061295402,
+      "target_text_exact": null,
+      "target_action_exact": null,
+      "spec_target_exact": 51
+    },
+    {
+      "condition": "random_sign_norm_matched",
+      "eta": 4.54140127388535,
+      "eta_change_percent": 2.7941563745597753,
+      "raw_accept_length": 3.582802547770701,
+      "spec_total_sec": 1.499441245694042,
+      "spec_total_change_percent": 6.122853543103335,
+      "spec_decode_sec": 0.2083871037352319,
+      "target_f1": 0.7437018259765033,
+      "target_text_exact": 50,
+      "target_action_exact": 51,
+      "spec_target_exact": 51
+    },
+    {
+      "condition": "fgsm_lambda1",
+      "eta": 4.666666666666667,
+      "eta_change_percent": 5.6295258117262215,
+      "raw_accept_length": 3.6666666666666665,
+      "spec_total_sec": 1.502950438343938,
+      "spec_total_change_percent": 6.371216417413272,
+      "spec_decode_sec": 0.20644036461325252,
+      "target_f1": 0.7368015048724519,
+      "target_text_exact": 50,
+      "target_action_exact": 50,
+      "spec_target_exact": 51
+    },
+    {
+      "condition": "pgd_unconstrained",
+      "eta": 2.327,
+      "eta_change_percent": -47.3,
+      "raw_accept_length": 1.399,
+      "spec_total_sec": 1.688,
+      "spec_total_change_percent": 19.5,
+      "spec_decode_sec": 0.394,
+      "target_f1": 0.580,
+      "target_text_exact": 28,
+      "target_action_exact": null,
+      "spec_target_exact": 50
+    },
+    {
+      "condition": "pgd_lambda1",
+      "eta": 2.5629496402877696,
+      "eta_change_percent": -42.0,
+      "raw_accept_length": 1.6564748201438848,
+      "spec_total_sec": 1.669425892292102,
+      "spec_total_change_percent": 18.2,
+      "spec_decode_sec": 0.3762653107736625,
+      "target_f1": 0.7411432415671299,
+      "target_text_exact": 50,
+      "target_action_exact": 51,
+      "spec_target_exact": 51
+    },
+    {
+      "condition": "pgd_lambda4",
+      "eta": 2.6437847866419295,
+      "eta_change_percent": -40.2,
+      "raw_accept_length": 1.7328385899814471,
+      "spec_total_sec": 1.6672536977475472,
+      "spec_total_change_percent": 18.0,
+      "spec_decode_sec": 0.36459265035741467,
+      "target_f1": 0.7411432415671299,
+      "target_text_exact": 50,
+      "target_action_exact": 51,
+      "spec_target_exact": 51
+    }
+  ]
+}

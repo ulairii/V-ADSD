@@ -1,0 +1,35 @@
+# Local workflow records and IDE files
+CODEX_RECORD.md
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.venv/
+venv/
+envs/
+
+# Models, caches, and heavy experiment outputs
+cache/
+checkpoints/
+models/
+runs/
+logs/
+adversarial_inputs/
+external/
+paper_table.generated.md
+local-upload-plan.json
+*.pt
+*.pth
+*.ckpt
+*.safetensors
+*.bin
+
+# Scheduler and local build output
+slurm-*.out
+slurm-*.err
+*.tmp
+*.log
